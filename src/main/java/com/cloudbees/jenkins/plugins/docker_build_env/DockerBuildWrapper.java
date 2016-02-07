@@ -232,6 +232,10 @@ public class DockerBuildWrapper extends BuildWrapper {
         String uid = bos.toString().trim();
 
         String gid = group;
+        if (group.contains(":")){
+            //group contains user and group
+            return group;
+        }
         if (isEmpty(group)) {
             ByteArrayOutputStream bos2 = new ByteArrayOutputStream();
             launcher.launch().cmds("id", "-g").stdout(bos2).quiet(true).join();
